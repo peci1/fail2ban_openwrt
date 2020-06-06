@@ -20,3 +20,10 @@ if [ "${python_prog}" = "python3" ]; then
 fi
 
 /etc/init.d/syslog-ng reload
+
+# set pppd to debug mode (needed for correct log parsing)
+if grep -q '^#debug$' /etc/ppp/options.pptpd; then
+  sed -i '1s=^#debug=debug=' /etc/ppp/options.pptpd
+elif ! grep -q '^debug$' /etc/ppp/options.pptpd; then
+  echo "debug" >> /etc/ppp/options.pptpd
+fi
