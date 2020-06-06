@@ -7,6 +7,11 @@ if [ $# -gt 1 ]; then
   download_dir="$1"
 fi
 
+if [ -z "`which git`" ]; then
+  opkg update
+  opkg install git
+fi
+
 cd "${download_dir}"
 git clone https://github.com/fail2ban/fail2ban.git
 cd fail2ban
