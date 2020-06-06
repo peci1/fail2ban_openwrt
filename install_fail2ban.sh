@@ -23,5 +23,5 @@ mkdir -p "${download_dir}"
 cd "${download_dir}"
 git clone https://github.com/fail2ban/fail2ban.git
 cd fail2ban
-python3 fail2ban-2to3
+./fail2ban-2to3
 python3 setup.py install 
