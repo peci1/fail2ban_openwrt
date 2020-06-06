@@ -12,3 +12,5 @@ cp etc/syslog-ng.d/pptp.conf /etc/syslog-ng.d/
 cp usr/bin/parse_pptp_log.py /usr/bin/
 
 chmod +x /usr/bin/parse_pptp_log.py
+
+/etc/init.d/syslog-ng reload
