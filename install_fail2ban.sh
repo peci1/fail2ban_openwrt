@@ -7,11 +7,10 @@ if [ $# -gt 1 ]; then
   download_dir="$1"
 fi
 
-if [ -z "`which git`" ]; then
-  opkg update
-  opkg install git
-  opkg install git-http
-fi
+opkg update
+opkg install git
+opkg install git-http
+opkg install python3-lib2to3
 
 mkdir -p "${download_dir}"
 cd "${download_dir}"
