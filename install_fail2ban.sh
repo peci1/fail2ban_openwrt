@@ -4,8 +4,6 @@
 
 set -e
 
-. detect_python.sh
-
 download_dir="/usr/src"
 if [ $# -gt 1 ]; then
   download_dir="$1"
@@ -20,6 +18,7 @@ cd "${download_dir}"
 git clone https://github.com/fail2ban/fail2ban.git
 cd fail2ban
 
+. ./detect_python.sh
 if [ "${python_ver}" -eq 3 ]; then
   opkg install python3-lib2to3
   

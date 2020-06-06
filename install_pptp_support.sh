@@ -14,7 +14,7 @@ cp usr/bin/parse_pptp_log.py /usr/bin/
 chmod +x /usr/bin/parse_pptp_log.py
 
 # if only python3 is available, change the shebang accordingly
-. detect_python.sh
+. ./detect_python.sh
 if [ "${python_prog}" = "python3" ]; then
   sed -i '1s=^#! ?/usr/bin/\(python\|env python\)2?=#!%{__python3}=' /usr/bin/parse_pptp_log.py
 fi
