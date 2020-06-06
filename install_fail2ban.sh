@@ -13,6 +13,7 @@ if [ -z "`which git`" ]; then
   opkg install git-http
 fi
 
+mkdir -p "${download_dir}"
 cd "${download_dir}"
 git clone https://github.com/fail2ban/fail2ban.git
 cd fail2ban
