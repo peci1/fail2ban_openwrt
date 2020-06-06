@@ -10,6 +10,7 @@ fi
 if [ -z "`which git`" ]; then
   opkg update
   opkg install git
+  opkg install git-http
 fi
 
 cd "${download_dir}"
