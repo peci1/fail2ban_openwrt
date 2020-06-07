@@ -1,2 +1,0 @@
-MAILTO=""
-*	*	*	*	*	root	/usr/bin/parse_pptp_log.py /var/log/ppp > /var/log/ppp.login

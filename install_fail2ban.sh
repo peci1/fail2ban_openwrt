@@ -4,7 +4,9 @@
 
 set -e
 
-. ./detect_python.sh
+SCRIPT_DIR="$( cd "$( dirname "${SCRIPT}" )" >/dev/null 2>&1 && pwd )"
+
+. "${SCRIPT_DIR}/detect_python.sh"
 
 download_dir="/usr/src"
 if [ $# -gt 1 ]; then
