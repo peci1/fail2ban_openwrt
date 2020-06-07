@@ -18,19 +18,9 @@ from __future__ import print_function
 
 import os
 import re
-import signal
 import sys
 import time
 
-
-def signal_handler(_, __):
-    global interrupted
-    interrupted = True
-
-
-interrupted = False
-signal.signal(signal.SIGTERM, signal_handler)
-signal.signal(signal.SIGINT, signal_handler)
 
 # Max number of consecutive lines in the log between the "control connection started"
 # line and the line with authentication result.
@@ -64,14 +54,14 @@ pppd_pid = None
 client = None
 user = None
 
-while not interrupted:
+while True:
     if not os.path.exists(logfile):
         print("Logfile {} does not exist. Make sure syslog is correctly configured. "
               "Retrying in 10 seconds".format(logfile), file=sys.stderr)
         time.sleep(10)
         continue
     with open(logfile) as fifo:
-        while not interrupted:
+        while True:
             for logline in fifo:
                 if len(logline) == 0:
                     break  # fifo writer closed
