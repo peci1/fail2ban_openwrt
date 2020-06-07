@@ -20,6 +20,13 @@ opkg install git-http
 
 # if inotify is available through opkg and is not installed, install it
 if opkg info libinotifytools | grep -q "not-installed"; then
+  # make sure we have pip
+  if [ "${python_ver}" -eq 3 ]; then
+    opkg install python3-pip
+  else
+    opkg install python-pip
+  fi
+  
   opkg install libinotifytools
   /usr/bin/env "${python_prog}" -m pip install pyinotify
 fi
