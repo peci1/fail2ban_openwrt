@@ -2,19 +2,21 @@
 
 # Install support for banning pptp failed logins
 
+SCRIPT_DIR="$(cd "$(dirname "${SCRIPT}")" >/dev/null 2>&1 && pwd)"
+
 mkdir -p /etc/fail2ban/filter.d
 mkdir -p /etc/fail2ban/jail.d
 
-cp etc/init.d/fail2ban_pptp /etc/init.d/
-cp etc/fail2ban/filter.d/pptp.conf /etc/fail2ban/filter.d/
-cp etc/fail2ban/jail.d/pptp.conf /etc/fail2ban/jail.d/
-cp etc/syslog-ng.d/pptp.conf /etc/syslog-ng.d/
-cp usr/bin/parse_pptp_log.py /usr/bin/
+cp "${SCRIPT_DIR}/etc/init.d/fail2ban_pptp" /etc/init.d/
+cp "${SCRIPT_DIR}/etc/fail2ban/filter.d/pptp.conf" /etc/fail2ban/filter.d/
+cp "${SCRIPT_DIR}/etc/fail2ban/jail.d/pptp.conf" /etc/fail2ban/jail.d/
+cp "${SCRIPT_DIR}/etc/syslog-ng.d/pptp.conf" /etc/syslog-ng.d/
+cp "${SCRIPT_DIR}/usr/bin/parse_pptp_log.py" /usr/bin/
 
 chmod +x /usr/bin/parse_pptp_log.py
 
 # if only python3 is available, change the shebang accordingly
-. ./detect_python.sh
+. "${SCRIPT_DIR}/detect_python.sh"
 if [ "${python_prog}" = "python3" ]; then
   sed -i '1s=^#! ?/usr/bin/\(python\|env python\)2?=#!%{__python3}=' /usr/bin/parse_pptp_log.py
 fi
