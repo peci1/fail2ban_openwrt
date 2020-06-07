@@ -1,3 +1,5 @@
+# Copyright (C) 2020 Martin Pecka, 3-clause BSD license (see LICENSE file)
+
 python_ver_str="`/usr/bin/env python --version`"
 if [ $? ]; then
   python_prog=python3

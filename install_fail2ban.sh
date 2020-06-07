@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# Copyright (C) 2020 Martin Pecka, 3-clause BSD license (see LICENSE file)
+
 # Install Fail2Ban from master branch
 
 set -e

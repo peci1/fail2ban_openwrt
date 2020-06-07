@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+# Copyright (C) 2020 Martin Pecka, 3-clause BSD license (see LICENSE file)
+
 # This program parses the joint log of pppd and pptpd and transforms it into a list
 # of connections with either successful or unsuccessful authentication.
 # The program requsires pppd logging in debug mode.

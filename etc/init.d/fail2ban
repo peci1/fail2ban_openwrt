@@ -1,5 +1,5 @@
 #!/bin/sh /etc/rc.common
-# Copyright (C) 2010 OpenWrt.org
+# Copyright (C) 2020 Martin Pecka, 3-clause BSD license (see LICENSE file)
 
 START=95
 

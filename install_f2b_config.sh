@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# Copyright (C) 2020 Martin Pecka, 3-clause BSD license (see LICENSE file)
+
 # Install basic OpenWRT support for fail2ban
 
 SCRIPT_DIR="$(cd "$(dirname "${SCRIPT}")" >/dev/null 2>&1 && pwd)"
