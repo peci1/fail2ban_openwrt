@@ -121,6 +121,7 @@ while not interrupted:
                                 pptpd_pid, pppd_pid, client, prefix))
                             found = True
                     if found:
+                        sys.stdout.flush()
                         connection_started_idx = None
                         prefix = None
                         pptpd_pid = None
