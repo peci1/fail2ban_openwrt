@@ -10,8 +10,10 @@ cp etc/fail2ban/filter.d/pptp.conf /etc/fail2ban/filter.d/
 cp etc/fail2ban/jail.d/pptp.conf /etc/fail2ban/jail.d/
 cp etc/syslog-ng.d/pptp.conf /etc/syslog-ng.d/
 cp usr/bin/parse_pptp_log.py /usr/bin/
+cp usr/bin/pptp_inotify_watcher.py /usr/bin/
 
 chmod +x /usr/bin/parse_pptp_log.py
+chmod +x /usr/bin/pptp_inotify_watcher.py
 
 # if only python3 is available, change the shebang accordingly
 . ./detect_python.sh
