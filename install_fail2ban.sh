@@ -18,6 +18,12 @@ opkg update
 opkg install git
 opkg install git-http
 
+# if inotify is available through opkg and is not installed, install it
+if opkg info libinotifytools | grep -q "not-installed"; then
+  opkg install libinotifytools
+  /usr/bin/env "${python_prog}" -m pip install pyinotify
+fi
+
 mkdir -p "${download_dir}"
 cd "${download_dir}"
 git clone https://github.com/fail2ban/fail2ban.git
