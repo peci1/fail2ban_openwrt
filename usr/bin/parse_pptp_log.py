@@ -106,16 +106,17 @@ with open(outfile, 'a') as out:
                         if m is not None:
                             user = m.group(1)
                             print("FAIL pptpd PID: {}, pppd PID: {}, IP: {}, user: {}, prefix: {}".format(
-                                pptpd_pid, pppd_pid, client, user, prefix), file=out, flush=True)
+                                pptpd_pid, pppd_pid, client, user, prefix), file=out)
                             found = True
                         if not found:
                             m = re.search(
                                 r'{}\[{}]: peer from calling number {} authorized'.format(PPPD_NAME, pppd_pid, client), logline)
                             if m is not None:
                                 print("OK   pptpd PID: {}, pppd PID: {}, IP: {}, prefix: {}".format(
-                                    pptpd_pid, pppd_pid, client, prefix), file=out, flush=True)
+                                    pptpd_pid, pppd_pid, client, prefix), file=out)
                                 found = True
                         if found:
+                            out.flush()
                             connection_started_idx = None
                             prefix = None
                             pptpd_pid = None
