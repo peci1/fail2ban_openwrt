@@ -1,6 +1,9 @@
 # fail2ban_openwrt
 OpenWRT support for fail2ban with special additions of support for PPtP scan banning (optional).
 
+It is tested on Turris OS 3.x and 5.x, which are both based on OpenWRT (the latter on OpenWRT 19.07).
+Works both when python 2 or python 3 are system interpreters.
+
 ## Installation
 
 If you don't already have fail2ban installed, you can try the `./install_fail2ban.sh` script.
