@@ -1,7 +1,7 @@
 # Copyright (C) 2020 Martin Pecka, 3-clause BSD license (see LICENSE file)
 
-python_ver_str="`/usr/bin/env python --version`"
-if [ $? ]; then
+python_ver_str="$(/usr/bin/env python --version 2>&1)"
+if [ $? -ne 0 ]; then
   python_prog=python3
   python_ver=3
 else
