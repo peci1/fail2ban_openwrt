@@ -64,62 +64,61 @@ with open(outfile, 'a') as out:
             time.sleep(10)
             continue
         with open(logfile) as fifo:
-            while True:
-                for logline in fifo:
-                    if len(logline) == 0:
-                        break  # fifo writer closed
+            for logline in fifo:
+                if len(logline) == 0:
+                    break  # fifo writer closed
 
-                    linenum += 1
+                linenum += 1
 
-                    if connection_started_idx is not None and \
-                            (linenum - connection_started_idx) > MAX_LINES_AFTER_CONNECTION_STARTED:
+                if connection_started_idx is not None and \
+                        (linenum - connection_started_idx) > MAX_LINES_AFTER_CONNECTION_STARTED:
+                    connection_started_idx = None
+                    prefix = None
+                    pptpd_pid = None
+                    pppd_pid = None
+                    client = None
+                    user = None
+
+                if connection_started_idx is None:
+                    m = re.search(
+                        r'^(.*){}\[([0-9]+)]: CTRL: Client (.*) control connection started'.format(PPTPD_NAME), logline)
+                    if m is not None:
+                        connection_started_idx = linenum
+                        prefix = m.group(1)
+                        pptpd_pid = int(m.group(2))
+                        client = m.group(3)
+                        pppd_pid = None
+                        continue
+
+                if connection_started_idx is not None and pptpd_pid is not None and pppd_pid is None:
+                    m = re.search(r'{}\[([0-9]+)]: '.format(PPPD_NAME), logline)
+                    if m is not None and \
+                            (linenum - connection_started_idx) <= MAX_LINES_AFTER_CONNECTION_STARTED:
+                        pid = int(m.group(1))
+                        if (pid - pptpd_pid) < MAX_PID_DIFF:
+                            pppd_pid = pid
+                            continue
+
+                if pptpd_pid is not None and pppd_pid is not None:
+                    found = False
+                    m = re.search(r'{}\[{}]: Peer (.*) failed CHAP authentication'.format(PPPD_NAME, pppd_pid), logline)
+                    if m is not None:
+                        user = m.group(1)
+                        print("FAIL pptpd PID: {}, pppd PID: {}, IP: {}, user: {}, prefix: {}".format(
+                            pptpd_pid, pppd_pid, client, user, prefix), file=out)
+                        found = True
+                    if not found:
+                        m = re.search(
+                            r'{}\[{}]: peer from calling number {} authorized'.format(PPPD_NAME, pppd_pid, client), logline)
+                        if m is not None:
+                            print("OK   pptpd PID: {}, pppd PID: {}, IP: {}, prefix: {}".format(
+                                pptpd_pid, pppd_pid, client, prefix), file=out)
+                            found = True
+                    if found:
+                        out.flush()
                         connection_started_idx = None
                         prefix = None
                         pptpd_pid = None
                         pppd_pid = None
                         client = None
                         user = None
-
-                    if connection_started_idx is None:
-                        m = re.search(
-                            r'^(.*){}\[([0-9]+)]: CTRL: Client (.*) control connection started'.format(PPTPD_NAME), logline)
-                        if m is not None:
-                            connection_started_idx = linenum
-                            prefix = m.group(1)
-                            pptpd_pid = int(m.group(2))
-                            client = m.group(3)
-                            pppd_pid = None
-                            continue
-
-                    if connection_started_idx is not None and pptpd_pid is not None and pppd_pid is None:
-                        m = re.search(r'{}\[([0-9]+)]: '.format(PPPD_NAME), logline)
-                        if m is not None and \
-                                (linenum - connection_started_idx) <= MAX_LINES_AFTER_CONNECTION_STARTED:
-                            pid = int(m.group(1))
-                            if (pid - pptpd_pid) < MAX_PID_DIFF:
-                                pppd_pid = pid
-                                continue
-
-                    if pptpd_pid is not None and pppd_pid is not None:
-                        found = False
-                        m = re.search(r'{}\[{}]: Peer (.*) failed CHAP authentication'.format(PPPD_NAME, pppd_pid), logline)
-                        if m is not None:
-                            user = m.group(1)
-                            print("FAIL pptpd PID: {}, pppd PID: {}, IP: {}, user: {}, prefix: {}".format(
-                                pptpd_pid, pppd_pid, client, user, prefix), file=out)
-                            found = True
-                        if not found:
-                            m = re.search(
-                                r'{}\[{}]: peer from calling number {} authorized'.format(PPPD_NAME, pppd_pid, client), logline)
-                            if m is not None:
-                                print("OK   pptpd PID: {}, pppd PID: {}, IP: {}, prefix: {}".format(
-                                    pptpd_pid, pppd_pid, client, prefix), file=out)
-                                found = True
-                        if found:
-                            out.flush()
-                            connection_started_idx = None
-                            prefix = None
-                            pptpd_pid = None
-                            pppd_pid = None
-                            client = None
-                            user = None
