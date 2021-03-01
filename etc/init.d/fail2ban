@@ -45,7 +45,7 @@ start_service() {
 	procd_set_param file ${CONFDIR}/*.conf
 	procd_set_param file ${CONFDIR}/*.local
 
-	procd_set_param command /usr/bin/fail2ban-server -xf --logtarget=syslog -p "${RUNDIR}/fail2ban.pid" -s "${RUNDIR}/fail2ban.sock" start
+	procd_set_param command /usr/bin/fail2ban-server -xf -p "${RUNDIR}/fail2ban.pid" -s "${RUNDIR}/fail2ban.sock" start
 	procd_set_param respawn ${respawn_threshold:-3600} ${respawn_timeout:-5} ${respawn_retry:-5}
 	procd_close_instance
 }
