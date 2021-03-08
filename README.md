@@ -45,6 +45,12 @@ flash memory, it is possibly not meant to keep often-changing files and you shou
 connect an external drive and set it as the location for fail2ban database, otherwise it can destroy
 your router. You have been warned.
 
+By default, fail2ban blocks traffic directed at your router. But if you e.g. collect logs from other
+LAN devices or virtual containers and want fail2ban to block traffic to these devices, too (in case they
+are reachable from Internet e.g. via port redirects or DMZ), you will need to adjust the jail config to
+use FORWARD chain instead of the default INPUT chain. The fail2ban jail config to set that is
+`chain = FORWARD`.
+
 ## Troubleshooting
 
 ### Fail2ban
