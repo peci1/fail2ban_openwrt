@@ -7,21 +7,21 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fail2ban
 PKG_VERSION:=0.11.2
-PKG_RELEASE:=2
-PKGARCH:=all
+PKG_RELEASE:=1
 
-PKG_SOURCE_VERSION:=$(PKG_VERSION)
+PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>
+PKG_LICENSE:=GPL-2.0-or-later
+PKG_LICENSE_FILES:=COPYING
+
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/fail2ban/fail2ban/tar.gz/$(PKG_VERSION)?
 PKG_MIRROR_HASH:=1899888a178e2a7d8b7234afcd96387559a7781fb4aa621c9288258e74753f47
 
-PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>
-PKG_LICENSE:=GPL-2.0
-PKG_LICENSE_FILES:=COPYING
-
+PKG_INSTALL:=1
+PKG_BUILD_PARALLEL:=1
 PKG_BUILD_DEPENDS:=python3/host
 HOST_BUILD_DEPENDS:=python3-lib2to3/host
 
-$(call include_mk, pypi.mk)
 include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python3-package.mk)
 
@@ -31,22 +31,22 @@ define Package/fail2ban
   TITLE:=ban hosts that cause multiple authentication errors
   URL:=https://www.fail2ban.org/
   DEPENDS:= \
-	+libinotifytools	\
-	+pyinotify	\
-	+python3-light		\
-	+python3-dns		\
-	+python3-ctypes		\
-	+python3-distutils	\
-	+python3-email		\
-	+python3-logging	\
-	+python3-sqlite3	\
-	+python3-urllib		\
-	+python3-lib2to3	\
-	+python3-setuptools
+  +libinotifytools \
+  +pyinotify \
+  +python3-light \
+  +python3-dns \
+  +python3-ctypes \
+  +python3-distutils \
+  +python3-email \
+  +python3-logging \
+  +python3-sqlite3 \
+  +python3-urllib \
+  +python3-lib2to3 \
+  +python3-setuptools
 endef
 
 define Package/fail2ban/description
-Fail2Ban scans log files like /var/log/auth.log and bans IP addresses conducting too many failed login attempts.
+  Fail2Ban scans log files like /var/log/auth.log and bans IP addresses conducting too many failed login attempts.
 endef
 
 define Package/fail2ban/conffiles
@@ -68,18 +68,18 @@ define Py3Package/fail2ban/install
 	$(INSTALL_DIR) $(1)/etc/
 	$(CP) ./files/etc/firewall.fail2ban $(1)/etc/firewall.fail2ban
 
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_CONF) ./files/etc/config/fail2ban $(1)/etc/config/fail2ban
+	
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(CP) ./files/etc/init.d/fail2ban.init $(1)/etc/init.d/fail2ban
+
 	$(INSTALL_DIR) $(1)/etc/fail2ban/
 	$(CP) $(PKG_BUILD_DIR)/config/* $(1)/etc/fail2ban/
 	$(CP) ./files/etc/fail2ban/* $(1)/etc/fail2ban/
 
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(CP) ./files/etc/init.d/fail2ban.init $(1)/etc/init.d/fail2ban
-
 	$(INSTALL_DIR) $(1)/etc/fail2ban/fail2ban.d
 	$(CP) ./files/etc/fail2ban/fail2ban.d/uci.conf $(1)/etc/fail2ban/fail2ban.d/uci.conf
-
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_CONF) ./files/etc/config/fail2ban $(1)/etc/config/fail2ban
 endef
 
 define Package/fail2ban/postinst
