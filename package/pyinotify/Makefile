@@ -21,7 +21,7 @@ include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include ../python3-package.mk
 
-define Package/python3-pyinotify
+define Package/pyinotify
   SUBMENU:=Python
   SECTION:=lang
   CATEGORY:=Languages
@@ -30,7 +30,7 @@ define Package/python3-pyinotify
   DEPENDS:= +python3-light
 endef
 
-define Package/python3-pyinotify/description
+define Package/pyinotify/description
   Pyinotify is a Python module for monitoring filesystems changes.
 endef
 

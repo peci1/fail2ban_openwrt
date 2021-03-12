@@ -32,7 +32,7 @@ define Package/fail2ban
   URL:=https://www.fail2ban.org/
   DEPENDS:= \
 	+libinotifytools	\
-	+python3-pyinotify	\
+	+pyinotify	\
 	+python3-light		\
 	+python3-dns		\
 	+python3-ctypes		\
