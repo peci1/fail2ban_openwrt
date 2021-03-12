@@ -34,6 +34,6 @@ define Package/python3-pyinotify/description
   Pyinotify is a Python module for monitoring filesystems changes.
 endef
 
-$(eval $(call Py3Package,python3-pyinotify))
-$(eval $(call BuildPackage,python3-pyinotify))
-$(eval $(call BuildPackage,python3-pyinotify-src))
+$(eval $(call Py3Package,pyinotify))
+$(eval $(call BuildPackage,pyinotify))
+$(eval $(call BuildPackage,pyinotify-src))
