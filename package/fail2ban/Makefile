@@ -21,9 +21,9 @@ PKG_LICENSE_FILES:=COPYING
 PKG_BUILD_DEPENDS:=python3/host
 HOST_BUILD_DEPENDS:=python3-lib2to3/host
 
-include ../pypi.mk
+$(call include_mk, pypi.mk)
 include $(INCLUDE_DIR)/package.mk
-include ../python3-package.mk
+$(call include_mk, python3-package.mk)
 
 define Package/fail2ban
   SECTION:=net

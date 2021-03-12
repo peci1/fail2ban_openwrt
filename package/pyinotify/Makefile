@@ -17,9 +17,9 @@ PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-include ../pypi.mk
+$(call include_mk, pypi.mk)
 include $(INCLUDE_DIR)/package.mk
-include ../python3-package.mk
+$(call include_mk, python3-package.mk)
 
 define Package/pyinotify
   SUBMENU:=Python
