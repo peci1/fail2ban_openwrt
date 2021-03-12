@@ -36,4 +36,3 @@ endef
 
 $(eval $(call Py3Package,pyinotify))
 $(eval $(call BuildPackage,pyinotify))
-$(eval $(call BuildPackage,pyinotify-src))

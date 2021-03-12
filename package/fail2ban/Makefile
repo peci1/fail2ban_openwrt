@@ -112,4 +112,3 @@ endef
 
 $(eval $(call Py3Package,fail2ban))
 $(eval $(call BuildPackage,fail2ban))
-$(eval $(call BuildPackage,fail2ban-src))
