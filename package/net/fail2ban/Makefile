@@ -9,19 +9,19 @@ PKG_NAME:=fail2ban
 PKG_VERSION:=0.11.2
 PKG_RELEASE:=1
 
-PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>
-PKG_LICENSE:=GPL-2.0-or-later
-PKG_LICENSE_FILES:=COPYING
-
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/fail2ban/fail2ban/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=383108e5f8644cefb288537950923b7520f642e7e114efb843f6e7ea9268b1e0
+
+PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>
+PKG_LICENSE:=GPL-2.0-or-later
+PKG_LICENSE_FILES:=COPYING
 
 PKG_BUILD_DEPENDS:=python3/host
 HOST_BUILD_DEPENDS:=python3-lib2to3/host
 
 include $(INCLUDE_DIR)/package.mk
-$(call include_mk, python3-package.mk)
+include ../../lang/python/python3-package.mk
 
 define Package/fail2ban
   SECTION:=net
@@ -39,7 +39,6 @@ define Package/fail2ban
   +python3-logging \
   +python3-sqlite3 \
   +python3-urllib \
-  +python3-lib2to3 \
   +python3-setuptools
 endef
 
@@ -63,20 +62,19 @@ define Py3Package/fail2ban/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/bin/fail2ban-client $(1)/usr/bin/
 	$(CP) $(PKG_INSTALL_DIR)/usr/bin/fail2ban-regex $(1)/usr/bin/
 
-	$(INSTALL_DIR) $(1)/etc/
-	$(CP) ./files/etc/firewall.fail2ban $(1)/etc/firewall.fail2ban
-
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_CONF) ./files/etc/config/fail2ban $(1)/etc/config/fail2ban
-	
+	$(CP) ./files/etc/firewall.fail2ban $(1)/etc/firewall.fail2ban
+		
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(CP) ./files/etc/init.d/fail2ban.init $(1)/etc/init.d/fail2ban
 
 	$(INSTALL_DIR) $(1)/etc/fail2ban/
 	$(CP) $(PKG_BUILD_DIR)/config/* $(1)/etc/fail2ban/
-	$(CP) ./files/etc/fail2ban/* $(1)/etc/fail2ban/
+	$(CP) ./files/etc/fail2ban/fail2ban $(1)/etc/fail2ban/fail2ban
 
 	$(INSTALL_DIR) $(1)/etc/fail2ban/fail2ban.d
+	$(CP) ./files/etc/fail2ban/fail2ban.d/db.conf $(1)/etc/fail2ban/fail2ban.d/db.conf
 	$(CP) ./files/etc/fail2ban/fail2ban.d/uci.conf $(1)/etc/fail2ban/fail2ban.d/uci.conf
 endef
 
