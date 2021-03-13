@@ -17,7 +17,8 @@ PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
-PKG_BUILD_DEPENDS:=python3/host python3-lib2to3/host
+PKG_BUILD_DEPENDS:=python3/host
+HOST_BUILD_DEPENDS:=python3-lib2to3
 
 include $(INCLUDE_DIR)/package.mk
 include ../../lang/python/python3-package.mk
