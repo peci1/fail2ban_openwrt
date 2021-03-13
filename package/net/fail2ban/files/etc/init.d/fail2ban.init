@@ -52,7 +52,7 @@ start_service() {
 
 reload_service()
 {
-        stop
+	stop
 	start
 }
 

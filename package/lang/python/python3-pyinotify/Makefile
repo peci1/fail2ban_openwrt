@@ -25,12 +25,11 @@ define Package/python3-pyinotify
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Linux filesystem events monitoring
-  URL:=http://github.com/seb-m/pyinotify
+  URL:=https://github.com/seb-m/pyinotify
   DEPENDS:= +python3-light \
   +python3-asyncio \
   +python3-ctypes \
   +python3-logging
-
 endef
 
 define Package/python3-pyinotify/description
