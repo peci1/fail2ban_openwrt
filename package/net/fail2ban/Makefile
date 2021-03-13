@@ -73,8 +73,8 @@ define Py3Package/fail2ban/install
 	$(CP) $(PKG_BUILD_DIR)/config/* $(1)/etc/fail2ban/
 
 	$(INSTALL_DIR) $(1)/etc/fail2ban/fail2ban.d
-	$(CP) ./files/etc/fail2ban/fail2ban.d/db.conf $(1)/etc/fail2ban/fail2ban.d/db.conf
-	$(CP) ./files/etc/fail2ban/fail2ban.d/uci.conf $(1)/etc/fail2ban/fail2ban.d/uci.conf
+	$(CP) ./files/etc/fail2ban.d/db.conf $(1)/etc/fail2ban/fail2ban.d/db.conf
+	$(CP) ./files/etc/fail2ban.d/uci.conf $(1)/etc/fail2ban/fail2ban.d/uci.conf
 endef
 
 define Package/fail2ban/postinst
