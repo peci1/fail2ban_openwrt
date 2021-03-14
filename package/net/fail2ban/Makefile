@@ -17,12 +17,7 @@ PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
-PKG_BUILD_DEPENDS:=python3
-HOST_BUILD_DEPENDS:=python3-dev/host python3-lib2to3/host
-
-include ../../lang/python/pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include ../../lang/python/python3-host.mk
 include ../../lang/python/python3-package.mk
 
 define Package/fail2ban
@@ -51,11 +46,6 @@ endef
 define Package/fail2ban/conffiles
 /etc/fail2ban/
 /etc/config/fail2ban
-endef
-
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	cd $(PKG_BUILD_DIR) && ./fail2ban-2to3
 endef
 
 define Py3Package/fail2ban/install
