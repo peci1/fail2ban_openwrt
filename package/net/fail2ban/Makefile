@@ -17,9 +17,8 @@ PKG_MAINTAINER:=Gerald Kerma <gandalf@gk2.net>
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
-HOST_PYTHON3_PACKAGE_BUILD_DEPENDS:=lib2to3
-
 include $(INCLUDE_DIR)/package.mk
+include ../../lang/python/python3-host.mk
 include ../../lang/python/python3-package.mk
 
 define Package/fail2ban
