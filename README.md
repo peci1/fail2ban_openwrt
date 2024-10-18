@@ -1,6 +1,10 @@
 # fail2ban_openwrt
 OpenWRT support for fail2ban with special additions of support for PPtP scan banning (optional).
 
+> ![NOTE]
+> This repo has recently switched to using nftables for blocking pptp attackers.
+> If you're still using iptables, check out the iptables branch of this repo.
+
 It is tested on Turris OS 3.x and 5.x, which are both based on OpenWRT (the latter on OpenWRT 19.07).
 Works both when python 2 or python 3 are system interpreters.
 
