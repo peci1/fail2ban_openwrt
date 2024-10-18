@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding=utf-8
 
 # Copyright (C) 2020 Martin Pecka, 3-clause BSD license (see LICENSE file)

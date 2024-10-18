@@ -5,18 +5,13 @@ OpenWRT support for fail2ban with special additions of support for PPtP scan ban
 > This repo has recently switched to using nftables for blocking pptp attackers.
 > If you're still using iptables, check out the iptables branch of this repo.
 
-It is tested on Turris OS 3.x and 5.x, which are both based on OpenWRT (the latter on OpenWRT 19.07).
-Works both when python 2 or python 3 are system interpreters.
+It is tested on Turris OS 7.1, which is based on OpenWRT 21.02 and it only works on Python 3.
 
 ## Installation
 
-If you don't already have fail2ban installed, you can try the `./install_fail2ban.sh` script.
-It does its best to install it, but it is still possible you'd have to make some manual steps.
-By default, it downloads the sources to `/usr/src/fail2ban`. If you pass the install script
-an argument, it will download the sources to that destination instead.
-
-Once fail2ban is installed, run `./install_f2b_config.sh` to install the files necessary for
-running fail2ban under OpenWRT. You can enable automatic startup of fail2ban by calling
+If you don't already have fail2ban installed, just `opkg update && opkg install fail2ban`.
+Install additional configs by calling `./install_f2b_config.sh`.
+You can enable automatic startup of fail2ban by calling
 
     /etc/init.d/fail2ban enable
     
